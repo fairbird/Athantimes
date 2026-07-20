@@ -1,0 +1,64 @@
+﻿<?xml version="1.0"?>
+<stream>
+<flash>
+	<name>flash_0</name>
+	<url>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Flash/icons/athan0.png</url>
+	<urimg>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/athan.png</urimg>
+</flash>
+<flash>
+	<name>flash_1</name>
+	<url>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Flash/icons/athan1.png</url>
+	<urimg>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/athan.png</urimg>
+</flash>
+<flash>
+	<name>flash_2</name>
+	<url>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Flash/icons/athan2.png</url>
+	<urimg>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/athan.png</urimg>
+</flash>
+<flash>
+	<name>flash_3</name>
+	<url>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Flash/icons/athan3.png</url>
+	<urimg>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/athan.png</urimg>
+</flash>
+<flash>
+	<name>flash_4</name>
+	<url>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Flash/icons/athan4.png</url>
+	<urimg>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/athan.png</urimg>
+</flash>
+<flash>
+	<name>flash_5</name>
+	<url>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Flash/icons/athan5.png</url>
+	<urimg>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/athan.png</urimg>
+</flash>
+<flash>
+	<name>flash_6</name>
+	<url>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Flash/icons/athan6.png</url>
+	<urimg>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/athan.png</urimg>
+</flash>
+<flash>
+	<name>flash_7</name>
+	<url>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Flash/icons/athan7.png</url>
+	<urimg>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/athan.png</urimg>
+</flash>
+<flash>
+	<name>flash_8</name>
+	<url>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Flash/icons/athan8.png</url>
+	<urimg>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/athan.png</urimg>
+</flash>
+<flash>
+	<name>flash_9</name>
+	<url>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Flash/icons/athan9.png</url>
+	<urimg>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/athan.png</urimg>
+</flash>
+<flash>
+	<name>flash_10</name>
+	<url>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Flash/icons/athan10.png</url>
+	<urimg>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/athan.png</urimg>
+</flash>
+<flash>
+	<name>flash_11</name>
+	<url>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Flash/icons/athan11.png</url>
+	<urimg>/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/athan.png</urimg>
+</flash>
+
+</stream>

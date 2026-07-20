@@ -1,0 +1,38 @@
+﻿<?xml version="1.0"?>
+<stream>
+<ayames>
+	<name>_Ramada_</name>
+	<date1>_الأحد 1 رمضان 1438 هـ_</date1>
+	<date2>Sunday 1st Ramadan 1438h</date2>
+</ayames>
+<ayames>
+	<name>_Laylatul Qadr_</name>
+	<date1>_الجمعة 20 رمضان 1438 هـ_</date1>
+	<date2>Friday 20th Ramadan 1438h</date2>
+</ayames>
+<ayames>
+	<name>Eid ul Fitr</name>
+	<date1>_الاثنين 1 شوال 1438 هـ_</date1>
+	<date2>Monday 1st Shawwal 1438h</date2>
+</ayames>
+<ayames>
+	<name>Dhul Hijjah(الحج)</name>
+	<date1>_الخميس 8 ذي الحجة 1438 هـ_</date1>
+	<date2>Thursday 8th Dhul Hijjah 1438h</date2>
+</ayames>
+<ayames>
+	<name>Arafa</name>
+	<date1>_الجمعة 9 ذي الحجة 1438 هـ_</date1>
+	<date2>Friday 9th Dhul Hijjah 1438h</date2>
+</ayames>
+<ayames>
+	<name>Eid ul Adha </name>
+	<date1>_السبت 10 ذي الحجة 1438 هـ_</date1>
+	<date2>Saturday 10th Dhul Hijjah 1438h</date2>
+</ayames>
+<ayames>
+	<name>Ashoora </name>
+	<date1>_الاحد 10 محرم 1439 هـ_</date1>
+	<date2>Sunday 10th Muharram 1439h</date2>
+</ayames>
+</stream>
