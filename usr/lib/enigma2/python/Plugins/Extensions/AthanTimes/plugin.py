@@ -26,7 +26,7 @@ from Screens.InfoBarGenerics import InfoBarSeek, InfoBarNotifications
 from Plugins.Plugin import PluginDescriptor
 from Tools.Directories import resolveFilename, fileExists, SCOPE_PLUGINS
 from time import time
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 import base64, time, shutil, os, time, re, io, random
 
 from Plugins.Extensions.AthanTimes.outils.Console import Console
@@ -251,6 +251,36 @@ def Change_times_3(txt):
     	First = str('0') + str(First)
     txt_2 = str(First) + str(txt[-6:])
     return str(txt_2)
+
+# Local Hijri (tabular Islamic calendar) calculation, added By RAED to replace the
+# old v22v.net scrape (site gone, and its replacement renders the date only in the
+# browser via JS, so it can no longer be scraped). No internet needed at all.
+HIJRI_MONTHS_AR = ['محرم', 'صفر', 'ربيع الأول', 'ربيع الآخرة', 'جمادى الأولى', 'جمادى الآخرة', 'رجب', 'شعبان', 'رمضان', 'شوال', 'ذي القعدة', 'ذي الحجة']
+ARABIC_WEEKDAYS = ['الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد']
+
+def gregorian_to_jdn(year, month, day):
+    a = (14 - month) // 12
+    y = year + 4800 - a
+    m = month + 12 * a - 3
+    return day + (153 * m + 2) // 5 + 365 * y + y // 4 - y // 100 + y // 400 - 32045
+
+def jdn_to_hijri(jdn):
+    jd = jdn - 1948440 + 10632
+    n = (jd - 1) // 10631
+    jd = jd - 10631 * n + 354
+    j = ((10985 - jd) // 5316) * ((50 * jd) // 17719) + (jd // 5670) * ((43 * jd) // 15238)
+    jd = jd - ((30 - j) // 15) * ((17719 * j) // 50) - (j // 16) * ((15238 * j) // 43) + 29
+    im = (24 * jd) // 709
+    id_ = jd - (709 * im) // 24
+    iy = 30 * n + j - 30
+    return (iy, im, id_)
+
+def Hijri_Local(d):
+    jdn = gregorian_to_jdn(d.year, d.month, d.day)
+    iy, im, id_ = jdn_to_hijri(jdn)
+    weekday = ARABIC_WEEKDAYS[d.weekday()]
+    monthname = HIJRI_MONTHS_AR[im - 1]
+    return (weekday, id_, monthname, iy)
 
 
 class ScreenAthanTimesSetup(Screen, ConfigListScreen):
@@ -1421,22 +1451,25 @@ class ScreenPrayerTimes_Show(Screen):
     def Calendaro(self):
         if config.plugins.AthanTimesScreen.Screeno.value == 'more' and config.plugins.AthanTimesUpcoming.Upcoming.value == 'yes' and dwidth > 1280:
             if self.Calendar == False:
-                url = 'http://v22v.net/services/calendar.html'
-                request = compat_Request(url, None, Agent)
-                data = compat_urlopen(request).read()
-                Info2 = re.findall('<div class="FCalendar">.*?<p>(.*?)</p>.*?<ul>.*?<li>(.*?)</il>.*?<li>(.*?)</li>.*?<li>.*?(.*?).*?</li>', data.decode('utf-8'))
-                Info3 = re.findall('<div class="hijrito-gregorian">.*?<label>(.*?)</label>.*?<label>(.*?)</label>.*?<span>(.*?)</span>.*?</div>.*?<div class="hijrito-gregorian">.*?<label>.*?</label>.*?<label>.*?</label>.*?<span>.*?</span>.*?</div>.*?<div class="clearfix">', data.decode('utf-8'))
-                Info4 = re.findall('<div class="hijrito-gregorian">.*?<label>.*?</label>.*?<label>.*?</label>.*?<span>.*?</span>.*?</div>.*?<div class="hijrito-gregorian">.*?<label>(.*?)</label>.*?<label>(.*?)</label>.*?<span>(.*?)</span>.*?</div>.*?<div class="clearfix">', data.decode('utf-8'))
-                for day, NdayH, NdayM, Sana in Info2:
-                    day = Change_TXTDay(day)
-                    self['Box_19'].setText(day + ' ' + NdayH + ' ' + NdayM + ' ' + Sana)
+                today = date.today()
+                tomorrow = today + timedelta(days=1)
 
-                for day1, NdayH1, NdayM1 in Info3:
-                    NdayH1 = Change_TXT(NdayH1)
-                    self['Box_20'].setText(day1 + ' ' + NdayH1 + ' ' + NdayM1)
+                weekday1, hday1, hmonth1, hyear1 = Hijri_Local(tomorrow)
+                NdayH1 = Change_TXT(hmonth1) + ' ' + str(hday1) + ' ' + str(hyear1)
+                NdayM1 = today.strftime('%Y-%m-%d')
+                self['Box_21'].setText(weekday1 + ' ' + NdayH1 + ' ' + NdayM1)
 
-                for day2, NdayH2, NdayM2 in Info4:
-                    self['Box_21'].setText(day2 + ' ' + NdayH2 + ' ' + NdayM2)
+                dayaftertomorrow2 = today + timedelta(days=2)
+                weekday2, hday2, hmonth2, hyear2 = Hijri_Local(dayaftertomorrow2)
+                NdayH2 = Change_TXT(hmonth2) + ' ' + str(hday2) + ' ' + str(hyear2)
+                NdayM2 = today.strftime('%Y-%m-%d')
+                self['Box_20'].setText(weekday2 + ' ' + NdayH2 + ' ' + NdayM2)
+
+                dayaftertomorrow3 = today + timedelta(days=3)
+                weekday3, hday3, hmonth3, hyear3 = Hijri_Local(dayaftertomorrow3)
+                NdayH3 = Change_TXT(hmonth3) + ' ' + str(hday3) + ' ' + str(hyear3)
+                NdayM3 = tomorrow.strftime('%Y-%m-%d')
+                self['Box_19'].setText(weekday3 + ' ' + NdayH3 + ' ' + NdayM3)
 
                 self.Calendar = True
                 self['Box_19'].show()
@@ -1672,9 +1705,12 @@ class PrayerTimes_Contry(Screen):
         self.session.open(PrayerTimes_Contry_City, self.nameCtry, self.fil)
 
     def Free_Space(self):
-        for element in os.listdir('/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/PrayerTimes/Choice'):
+        choicedir = '/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/PrayerTimes/Choice'
+        if not os.path.exists(choicedir):
+            os.makedirs(choicedir, exist_ok=True)
+        for element in os.listdir(choicedir):
             if element.endswith('.xml'):
-                os.remove('/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/PrayerTimes/Choice/' + element)
+                os.remove(choicedir + '/' + element)
 
     def End(self):
         self.close()
