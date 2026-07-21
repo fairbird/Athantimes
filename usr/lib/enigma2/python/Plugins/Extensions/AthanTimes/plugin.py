@@ -1012,7 +1012,8 @@ class ScreenPrayerTimes_Show(Screen):
     def Update(self):
         self.timer.stop()
         self.timerupdat.stop()
-        self.session.open(Updat_AthanTimes)
+        #self.session.open(Updat_AthanTimes)
+        self.checkupdates()
 
     def Ayames(self):
         self.ayamesStreamListAthan()

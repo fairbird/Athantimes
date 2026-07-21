@@ -5,7 +5,7 @@ from Components.ScrollLabel import ScrollLabel
 from Screens.Screen import Screen
 from Components.Sources.StaticText import StaticText
 from twisted.web.client import downloadPage, getPage
-from Tools.Directories import fileExists
+from Tools.Directories import resolveFilename, fileExists, SCOPE_PLUGINS
 from Plugins.Extensions.AthanTimes.outils.MessagAthanTimes import MessageAthanTimes
 from Components.Label import Label
 from Plugins.Extensions.AthanTimes.outils.MessageBox import MessageBox
@@ -18,11 +18,26 @@ from Plugins.Extensions.AthanTimes.outils.compat import compat_urlopen, compat_R
 
 dwidth = getDesktop(0).size().width()
 
+def getversioninfo():
+	currversion = '1.0'
+	version_file = resolveFilename(SCOPE_PLUGINS, 'Extensions/AthanTimes/Version')
+	if os.path.exists(version_file):
+		try:
+			fp = open(version_file, 'r').readlines()
+			for line in fp:
+				if 'version' in line.lower():
+					currversion = line.split('=')[1].strip()
+		except:
+			pass
+	return currversion
+
+Ver = getversioninfo()
+
 #Agent = {'User-agent': 'Mozilla/5.0 (X11; U; Linux x86_64; de; rv:1.9.0.15) Gecko/2009102815 Ubuntu/9.04 (jaunty) Firefox/3.', 'Connection': 'Close'}
 Agent = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'}
-Date = '28 05 2022'
-NV = '2.3'
-Version1 = 'athan times V 2.3'
+Date = ''
+NV = '%s' % Ver
+Version1 = 'athan times V %s' % Ver
 Version = 'athan times for many cities_مواقيت الصلاة لعديد المدن'
 LienUpd = base64.b64decode('aHR0cDovL3d3dy5tZWRpYWZpcmUuY29tL2ZpbGUvb2hyOW40eTc2c2RpNjBjL0F0aGFuVGltZXNVcGRhdC50eHQ=')
 
