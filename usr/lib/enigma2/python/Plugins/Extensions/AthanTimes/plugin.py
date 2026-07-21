@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 # Plugin codes for Aime_Jeux
 # Update by RAED (fairbird) support py3
-
-from Components.config import config, ConfigSubsection, ConfigSelection, getConfigListEntry, configfile, ConfigClock, NoSave
+from Components.config import config, ConfigSubsection, ConfigSelection, ConfigYesNo, getConfigListEntry, configfile, ConfigClock, NoSave
 from Components.ConfigList import ConfigList, ConfigListScreen
 from Components.Pixmap import Pixmap, MovingPixmap
 from Components.Label import Label
@@ -25,6 +24,7 @@ from Screens.Screen import Screen
 from Screens.InfoBar import MoviePlayer
 from Screens.InfoBarGenerics import InfoBarSeek, InfoBarNotifications
 from Plugins.Plugin import PluginDescriptor
+from Tools.Directories import resolveFilename, fileExists, SCOPE_PLUGINS
 from time import time
 from datetime import date, datetime
 import base64, time, shutil, os, time, re, io, random
@@ -56,11 +56,6 @@ UserAgent2 = {
 AGENT = b'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
 AGENT_STR = AGENT.decode('utf-8', 'ignore')
 #Valeurs = '00:00'
-
-NV = 'V3.3'
-currversion = '3.3'
-Version = 'AthanTimes(مواقيت الصلاة)' + ' _' + NV
-Version_1 = 'prayer times for many cities_مواقيت الصلاة لعديد المدن'
 
 config.plugins.AthanTimes = ConfigSubsection()
 config.plugins.AthanTimesScreen = ConfigSubsection()
@@ -118,6 +113,26 @@ config.AthanTimes.isha.value, mytmpt = ([0, 0], [0, 0])
 config.AthanTimes.UpdatSalattime = NoSave(ConfigClock(default=0))
 config.AthanTimes.UpdatSalattime.value, mytmpt = ([0, 0], [0, 0])
 ##############
+
+def getversioninfo():
+	currversion = '1.0'
+	version_file = resolveFilename(SCOPE_PLUGINS, 'Extensions/AthanTimes/Version')
+	if os.path.exists(version_file):
+		try:
+			fp = open(version_file, 'r').readlines()
+			for line in fp:
+				if 'version' in line.lower():
+					currversion = line.split('=')[1].strip()
+		except:
+			pass
+	return currversion
+
+Ver = getversioninfo()
+
+NV = 'V%s' % Ver
+currversion = '%s' % Ver
+Version = 'AthanTimes(مواقيت الصلاة)' + ' _' + NV
+Version_1 = 'prayer times for many cities_مواقيت الصلاة لعديد المدن'
 
 logfile="/tmp/Athantimes.log"
 

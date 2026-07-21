@@ -914,25 +914,29 @@ def Import_time_Updat():
     return timupdat
 
 def Replace_time_Line_Updat(line):
+    filepath = '/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/PrayerTimes/ChoiceTime.txt'
+    if not os.path.exists(filepath) or len(open(filepath, 'r').readlines()) < 5:
+        os.system('touch ' + filepath)
+        open(filepath, 'w').write('\n\n\n\ntimeupdat=\n')
     try:
-        f = open('/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/PrayerTimes/ChoiceTime.txt', 'r')
+        f = open(filepath, 'r')
         chaine = f.readlines()
         f.close()
         lin0 = chaine[0].replace('\n', '').replace('\t', '').replace('\r', '')
         lin1 = chaine[1].replace('\n', '').replace('\t', '').replace('\r', '')
         lin2 = chaine[2].replace('\n', '').replace('\t', '').replace('\r', '')
         lin3 = chaine[3].replace('\n', '').replace('\t', '').replace('\r', '')
-        lin4 = chaine[4].replace('\n', '').replace('\t', '').replace('\r', '')
-        lin4 = lin4.replace(lin4, 'timeupdat=' + str(line))
+        lin4 = 'timeupdat=' + str(line)
         result = lin0 + '\n' + lin1 + '\n' + lin2 + '\n' + lin3 + '\n' + lin4
-    except compat_HTTPError as e:
-        print('Replace_time_Line_Updat: error reading file PrayerTimes/ChoiceTime.txt)')
+    except:
+        print('Replace_time_Line_Updat: error reading file PrayerTimes/ChoiceTime.txt')
+        return
     try:
-        f = open('/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/PrayerTimes/ChoiceTime.txt', 'w')
+        f = open(filepath, 'w')
         f.write(result)
         f.close()
-    except compat_HTTPError as e:
-        print('Replace_time_Line_Updat: error writing file PrayerTimes/ChoiceTime.txt)')
+    except:
+        print('Replace_time_Line_Updat: error writing file PrayerTimes/ChoiceTime.txt')
 
 def ImportDataInfos(data):
     if PY3:
