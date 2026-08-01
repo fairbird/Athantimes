@@ -1787,29 +1787,29 @@ class PrayerTimes_Contry_City(Screen):
         data = data
         urlop = main_url
         urlop = urlop.decode('utf-8')
-#        print("[DEBUG] urlop:", urlop)
-#        print("[DEBUG] data len:", len(data) if data else 0)
+        print("[DEBUG] urlop:", urlop)
+        print("[DEBUG] data len:", len(data) if data else 0)
         self.letter_list4 = []
         Contnt = self.Contnt
         Contr = self.name
         res = ImportDataInfos(data)
-#        print("[DEBUG] ImportDataInfos output:", res)
+        print("[DEBUG] ImportDataInfos output:", res)
         bilad,fajr,sunrise,dhuhr,asr,maghrib,isha,qiyam,Id,haiaa,Calc,Calcule,hijri,NextSalat,Posit = res
-#        print("[DEBUG] bilad:", bilad)
-#        print("[DEBUG] fajr:", fajr)
-#        print("[DEBUG] sunrise:", sunrise)
-#        print("[DEBUG] dhuhr:", dhuhr)
-#        print("[DEBUG] asr:", asr)
-#        print("[DEBUG] maghrib:", maghrib)
-#        print("[DEBUG] isha:", isha)
-#        print("[DEBUG] qiyam:", qiyam)
-#        print("[DEBUG] Id:", Id)
-#        print("[DEBUG] haiaa:", haiaa)
-#        print("[DEBUG] Calc:", Calc)
-#        print("[DEBUG] Calcule:", Calcule)
-#        print("[DEBUG] hijri:", hijri)
-#        print("[DEBUG] NextSalat:", NextSalat)
-#        print("[DEBUG] Posit:", Posit)
+        print("[DEBUG] bilad:", bilad)
+        print("[DEBUG] fajr:", fajr)
+        print("[DEBUG] sunrise:", sunrise)
+        print("[DEBUG] dhuhr:", dhuhr)
+        print("[DEBUG] asr:", asr)
+        print("[DEBUG] maghrib:", maghrib)
+        print("[DEBUG] isha:", isha)
+        print("[DEBUG] qiyam:", qiyam)
+        print("[DEBUG] Id:", Id)
+        print("[DEBUG] haiaa:", haiaa)
+        print("[DEBUG] Calc:", Calc)
+        print("[DEBUG] Calcule:", Calcule)
+        print("[DEBUG] hijri:", hijri)
+        print("[DEBUG] NextSalat:", NextSalat)
+        print("[DEBUG] Posit:", Posit)
         Next = (NextSalat[0][0] + ' ' + NextSalat[0][1] + ':' + NextSalat[0][2]).replace('\n', '').replace('\t', '').replace('\r', '')
         self.Hadira = NextSalat[0][0]
         lat = Posit[0][0] if Posit else ''
@@ -1832,7 +1832,8 @@ class PrayerTimes_Contry_City(Screen):
             outfile.write(self.FAJR)
             outfile.close()
             XML_Choice(self.letter_list4)
-        os.remove(Path_3)
+        if fileExists(Path_3):
+            os.remove(Path_3)
         if config.plugins.AthanTimes.UpdatSalat.value == 'yes':
             timeupdat = Verif_1(config.AthanTimes.UpdatSalattime.value)
             Afile = open(Path_3, 'a')
@@ -2649,7 +2650,7 @@ class athantimescreen_2(Screen):
     def load_iptv_2(self, data, main_url):
         urlop = main_url
         self.letter_list4 = []
-        bilad,fajr,sunrise,dhuhr,asr,maghrib,isha,qiyam,Id,haiaa,Calc,Calcule,hijri,NextSalat,Posit = ImportDataInfos_2(data)
+        bilad,fajr,sunrise,dhuhr,asr,maghrib,isha,qiyam,Id,haiaa,Calc,Calcule,hijri,NextSalat,Posit = ImportDataInfos(data)
         Next = (NextSalat[0][0] + ' ' + NextSalat[0][1] + ':' + NextSalat[0][2]).replace('\n', '').replace('\t', '').replace('\r', '')
         self.Hadira = NextSalat[0][0]
         lat = Posit[0][0] if Posit else ''
