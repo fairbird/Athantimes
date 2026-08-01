@@ -940,28 +940,61 @@ def Replace_time_Line_Updat(line):
 
 def ImportDataInfos(data):
     if PY3:
-        data = data.decode('utf-8')
-    else:
-        data = data
-    bilad = re.findall("<link rel='canonical' href='https://www.islamicfinder.org/world/.*?/.*?/(.*?)/?language=ar'></link>", data)[0]
-    bilad = bilad.replace('-prayer-times', '').replace('/', '').replace('?', '')
-    fajr = re.findall('<div class="prayerTiles fajar-tile">.+?<span class="prayername ">.+?</span>.+?<span class="prayertime">(.+?)</span>', data, re.S)
-    sunrise = re.findall('<div class="prayerTiles sunrise-tile">.+?<span class="prayername">.+?</span>.+?<span class="prayertime">(.+?)</span>', data, re.S)
-    dhuhr = re.findall('<div class="prayerTiles dhuhar-tile">.+?<span class="prayername">.+?</span>.+?<span class="prayertime">(.+?)</span>', data, re.S)
-    asr = re.findall('<div class="prayerTiles asr-tile">.+?<span class="prayername">.+?</span>.+?<span class="prayertime">(.+?)</span>', data, re.S)
-    maghrib = re.findall('<div class="prayerTiles maghrib-tile">.+?<span class="prayername">.+?</span>.+?<span class="prayertime">(.+?)</span>', data, re.S)
-    isha = re.findall('<div class="prayerTiles isha-tile">.+?<span class="prayername">.+?</span>.+?<span class="prayertime">(.+?)</span>', data, re.S)
+        data = data.decode('utf-8', 'ignore')
+
+    data = data.replace('&nbsp;', ' ')
+
+    bilad = re.findall(r"/world/.+?/.+?/(.+?)-prayer-times/\?language=ar", data)
+    bilad = bilad[0].replace('-', ' ') if bilad else ''
+
+    fajr = re.findall(r'"fajr"\s*:\s*"([^"]+)"', data, re.I)
+    if not fajr:
+        fajr = re.findall(r'prayerTiles.*?fajar.*?prayertime[^>]*>\s*([^<]+)', data, re.S | re.I)
+
+    sunrise = re.findall(r'sunrise-tile.*?<span class="prayertime[^"]*">\s*([0-9: ]+[AP]M)', data, re.S | re.I)
+
+    dhuhr = re.findall(r'dhuhar-tile.*?<span class="prayertime[^"]*">\s*([0-9: ]+[AP]M)', data, re.S | re.I)
+
+    asr = re.findall(r'asr-tile.*?<span class="prayertime[^"]*">\s*([0-9: ]+[AP]M)', data, re.S | re.I)
+
+    maghrib = re.findall(r'maghrib-tile.*?<span class="prayertime[^"]*">\s*([0-9: ]+[AP]M)', data, re.S | re.I)
+
+    isha = re.findall(r'isha-tile.*?<span class="prayertime[^"]*">\s*([0-9: ]+[AP]M)', data, re.S | re.I)
+
     qiyam = ['02:18 AM']
-    Id = re.findall('"locationId": "(.+?)",', data)
-    haiaa = re.findall('<p class="font-sm font-dark">(.+?)<a class=".+?" title="تغيير الإعدادات">يتغيرون</a>', data, re.S)
-    haiaa = haiaa[0].replace('\n', '').replace('\t', '').replace('\r', '').replace('&nbsp;', '')
-    Calc = re.findall('<p class="font-xs font-muted">(.+?)<span class', data, re.S)
-    Calc = Calc[0].replace('&nbsp;', ' ').replace('\n', '').replace('\t', '').replace('\r', '')
-    hijri = re.findall('<p class="font-weight-bold pt-date-right">(.+?)</p>', data)[0]
-    hijri = hijri.replace('&nbsp;', ' ')
-    NextSalat = re.findall('"nextPrayer": "lang.(.+?)", "nextPrayerRemainingTime": "(.+?):(.+?):.+?",', data, re.S)
-    Posit = re.findall('id="user-manual-latitude" placeholder=.+?value="(.+?)".+?id="user-manual-longitude" placeholder=.+?name="Longitute" value="(.+?)"', data, re.S)
-    return (bilad, fajr, sunrise, dhuhr, asr, maghrib, isha, qiyam, Id, haiaa, Calc, Calc, hijri, NextSalat, Posit)
+
+    Id = re.findall(r'"locationId"\s*:\s*"([^"]+)"', data)
+
+    haiaa = re.findall(r'<p class="pt-method-text">\s*(.*?)\s*<a', data, re.S)
+    haiaa = haiaa[0].strip() if haiaa else ''
+
+    Calc = re.findall(r'<p class="pt-method-desc">\s*(.*?)\s*</p>', data, re.S)
+    Calc = re.sub(r'<.*?>', '', Calc[0]).replace('\n', '').replace('\r', '').replace('\t', '').strip() if Calc else ''
+
+    hijri = re.findall(r'<span class="pt-date-hijri">\s*(.*?)\s*</span>', data, re.S)
+    hijri = re.sub(r'<.*?>', '', hijri[0]).strip() if hijri else ''
+
+    NextSalat = re.findall(r'"nextPrayer"\s*:\s*"lang\.([^"]+)".*?"nextPrayerRemainingTime"\s*:\s*"([^:"]+):([^:"]+):', data, re.S)
+
+    Posit = re.findall(r'id="user-manual-latitude".*?value="([^"]+)".*?id="user-manual-longitude".*?value="([^"]+)"', data, re.S)
+
+    return (
+        bilad,
+        fajr,
+        sunrise,
+        dhuhr,
+        asr,
+        maghrib,
+        isha,
+        qiyam,
+        Id,
+        haiaa,
+        Calc,
+        Calc,
+        hijri,
+        NextSalat,
+        Posit
+    )
 
 def show_listiptv0(h, p, u, pw):
     png = '/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/Decos/menu-Contry.png'
