@@ -1666,19 +1666,22 @@ class PrayerTimes_Contry(Screen):
 
     def list_iptv(self):
         main_url = self.urlInfo
-        # # self.session.open(MessageBox, main_url, MessageBox.TYPE_INFO, timeout=5)
-        # r = Demande.get(main_url,headers=UserAgent2)
-        # data = r.text
-        # self.load_iptv(data,main_url)
-        # self.session.open(MessageBox, data, MessageBox.TYPE_INFO, timeout=5)
+        print("[DEBUG] PrayerTimes_Contry main_url:", main_url)
         sniFactory = WebClientContextFactory(main_url)
         if PY3:
-        	getPage(main_url.encode('utf-8'), contextFactory=sniFactory, timeout=5,agent=AGENT).addCallback(self.load_iptv, main_url.encode('utf-8'))
+        	getPage(main_url.encode('utf-8'), contextFactory=sniFactory, timeout=5,agent=AGENT).addCallback(self.load_iptv, main_url.encode('utf-8')).addErrback(self.dataError)
         else:
-        	getPage(main_url, method='GET', headers=UserAgent2, contextFactory=sniFactory).addCallback(self.load_iptv, main_url)
+        	getPage(main_url, method='GET', headers=UserAgent2, contextFactory=sniFactory).addCallback(self.load_iptv, main_url).addErrback(self.dataError)
+
+    def dataError(self, data):
+        print("[DEBUG] PrayerTimes_Contry dataError:", data)
+        self['Box'].setText('Choose Your Country\nاختر دولتك')
+        self.session.open(MessageBox, 'login problem try again later', MessageBox.TYPE_INFO, timeout=10)
+
     def remove_extra_whitespace(self,string):
         string = re.sub(r'\s+', ' ', string)
         return re.sub(r'\s{2,}', ' ', string).strip()
+
     def load_iptv(self, data, main_url):
         self.letter_list3 = []
         Contnt = self.fil
@@ -1687,15 +1690,18 @@ class PrayerTimes_Contry(Screen):
             data = data.decode('utf-8')
         else:
             data = data
-        Contry = re.findall('class="underli.+?rel="".+?href="(.+?)".+?title.+?>(.+?)</a></td>', data,re.S)
-        ID_Contry = re.findall('''class="underli.+?rel="".+?href="/world/.*?/(.*?)/.*?/?language=ar"''', data,re.S)
+        print("[DEBUG] PrayerTimes_Contry data len:", len(data) if data else 0)
+        Contry = re.findall(r'class="underlined" rel="".+?href="(.+?)".+?title=\s*[\'"].*?[\'"]>(.+?)</a>', data, re.S)
+        print("[DEBUG] PrayerTimes_Contry Contry matches:", len(Contry))
         self.limito = len(Contry)
         for x in range(self.limito):
             try:
                 href = Contry[x][0]
                 name = Contry[x][1]
                 name = self.remove_extra_whitespace(name)
-                self.letter_list3.append(show_listiptv0('A_'+name, 'https://www.islamicfinder.org' + href, ID_Contry[x], ''))
+                idmatch = re.search(r'/(\d+)/[^/]+-prayer-times/', href)
+                cid = idmatch.group(1) if idmatch else ''
+                self.letter_list3.append(show_listiptv0('A_'+name, 'https://www.islamicfinder.org' + href, cid, ''))
             except IndexError:
                 pass
         self['List'].l.setList(self.letter_list3)
