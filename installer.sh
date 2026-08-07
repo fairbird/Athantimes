@@ -1,7 +1,7 @@
 #!/bin/bash
 ##setup command=wget https://raw.githubusercontent.com/fairbird/Athantimes/main/installer.sh -O - | /bin/sh
 
-version=3.7
+version=3.8
 echo ""
 #########################
 
