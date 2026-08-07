@@ -908,6 +908,26 @@ class ScreenPrayerTimes(Screen):
         lon = Posit[0][1] if Posit else ''
         # self.session.open(MessageBox,Contnt+','+Contr+','+fajr[0]+','+sunrise[0]+','+dhuhr[0]+','+asr[0]+','+maghrib[0]+','+isha[0]+','+qiyam[0]+','+urlop+','+Id[0]+','+lat+','+lon+','+hijri+','+Calcule+','+Next+','+bilad+','+haiaa, MessageBox.TYPE_INFO)
         self.letter_list4.append(show_listiptv1(Contnt, Contr, fajr[0], sunrise[0], dhuhr[0], asr[0], maghrib[0], isha[0], qiyam[0], urlop, Id[0], lat, lon, hijri, Calcule, Next, bilad, haiaa))
+        if isinstance(urlop, bytes):
+            urlop = urlop.decode('utf-8')
+        if isinstance(Contnt, bytes):
+            Contnt = Contnt.decode('utf-8')
+        if isinstance(Contr, bytes):
+            Contr = Contr.decode('utf-8')
+        if isinstance(lat, bytes):
+            lat = lat.decode('utf-8')
+        if isinstance(lon, bytes):
+            lon = lon.decode('utf-8')
+        if isinstance(hijri, bytes):
+            hijri = hijri.decode('utf-8')
+        if isinstance(Calcule, bytes):
+            Calcule = Calcule.decode('utf-8')
+        if isinstance(Next, bytes):
+            Next = Next.decode('utf-8')
+        if isinstance(bilad, bytes):
+            bilad = bilad.decode('utf-8')
+        if isinstance(haiaa, bytes):
+            haiaa = haiaa.decode('utf-8')
         self.FAJR = 'Contnt=' + Contnt + '\nContr=' + Contr + '\nfajr=' + Change_times_3(fajr[0]) + '\nsunrise=' + Change_times_3(sunrise[0]) + '\ndhuhr=' + Change_times_3(dhuhr[0]) + '\nasr=' + Change_times_3(asr[0]) + '\nmaghrib:' + Change_times_3(maghrib[0]) + '\nisha=' + Change_times_3(isha[0]) + '\nqiyam=' + Change_times_3(qiyam[0]) + '\nurl=' + urlop + '\nId=' + Id[0] + '\nLatitude=' + lat + '\nLongitude=' + lon + '\ndate=' + hijri + '\nCalc=' + Calcule + '\nNextSalat=' + Next + '\nbilad=' + bilad + '\nhaiaa=' + haiaa + '\nsalathadira='
         self.FAJR_1 = 'Contnt=' + Contnt + '\nContr=' + Contr + '\nfajr=' + Change_times_3(fajr[0]) + '\nsunrise=' + Change_times_3(sunrise[0]) + '\ndhuhr=' + Change_times_3(dhuhr[0]) + '\nasr=' + Change_times_3(asr[0]) + '\nmaghrib:' + Change_times_3(maghrib[0]) + '\nisha=' + Change_times_3(isha[0]) + '\nqiyam=' + Change_times_3(qiyam[0]) + '\nId=' + Id[0] + '\nLatitude=' + lat + '\nLongitude=' + lon + '\ndate=' + hijri + '\nCalc=' + Calcule + '\nNextSalat=' + Next + '\nbilad=' + bilad + '\nhaiaa=' + haiaa
         Path_2 = '/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/PrayerTimes/Choice/Choice.txt'
@@ -1188,9 +1208,22 @@ class ScreenPrayerTimes_Show(Screen):
             #self['Box_26'].setText('Your_Version_إصدارك_%s' % str(currversion))
         self.timerupdat.stop()
         self['Box_26'].setText('Your_Version_إصدارك_%s' % str(currversion))
+        print("[DEBUG Box_27] BEFORE Import_Datetime_Updat")
+
         message1, message2, message3, message4 = Import_Datetime_Updat()
+
+        print("[DEBUG Box_27] message1:", repr(message1))
+        print("[DEBUG Box_27] message2:", repr(message2))
+        print("[DEBUG Box_27] message3:", repr(message3))
+        print("[DEBUG Box_27] message4:", repr(message4))
+
         messageUpdattimes = message1 + '\nDay_' + message2 + ':' + message3 + ':' + message4 + '_يوم'
+
+        print("[DEBUG Box_27] messageUpdattimes:", repr(messageUpdattimes))
+
         self['Box_27'].setText(messageUpdattimes)
+
+        print("[DEBUG Box_27] AFTER setText")
 
     def Importtime(self):
         self.Nomdujour = time.strftime('%A / %d / %Y')
@@ -1822,6 +1855,26 @@ class PrayerTimes_Contry_City(Screen):
         lon = Posit[0][1] if Posit else ''
         # self.session.open(MessageBox,Contnt+','+Contr+','+fajr[0]+','+sunrise[0]+','+dhuhr[0]+','+asr[0]+','+maghrib[0]+','+isha[0]+','+qiyam[0]+','+urlop+','+Id[0]+','+lat+','+lon+','+hijri+','+Calcule+','+Next+','+bilad+','+haiaa, MessageBox.TYPE_INFO)
         self.letter_list4.append(show_listiptv1(Contnt, Contr, fajr[0], sunrise[0], dhuhr[0], asr[0], maghrib[0], isha[0], qiyam[0], urlop, Id[0], lat, lon, hijri, Calcule, Next, bilad, haiaa))
+        if isinstance(urlop, bytes):
+            urlop = urlop.decode('utf-8')
+        if isinstance(Contnt, bytes):
+            Contnt = Contnt.decode('utf-8')
+        if isinstance(Contr, bytes):
+            Contr = Contr.decode('utf-8')
+        if isinstance(lat, bytes):
+            lat = lat.decode('utf-8')
+        if isinstance(lon, bytes):
+            lon = lon.decode('utf-8')
+        if isinstance(hijri, bytes):
+            hijri = hijri.decode('utf-8')
+        if isinstance(Calcule, bytes):
+            Calcule = Calcule.decode('utf-8')
+        if isinstance(Next, bytes):
+            Next = Next.decode('utf-8')
+        if isinstance(bilad, bytes):
+            bilad = bilad.decode('utf-8')
+        if isinstance(haiaa, bytes):
+            haiaa = haiaa.decode('utf-8')
         self.FAJR = 'Contnt=' + Contnt + '\nContr=' + Contr + '\nfajr=' + Change_times_3(fajr[0]) + '\nsunrise=' + Change_times_3(sunrise[0]) + '\ndhuhr=' + Change_times_3(dhuhr[0]) + '\nasr=' + Change_times_3(asr[0]) + '\nmaghrib:' + Change_times_3(maghrib[0]) + '\nisha=' + Change_times_3(isha[0]) + '\nqiyam=' + Change_times_3(qiyam[0]) + '\nurl=' + urlop + '\nId=' + Id[0] + '\nLatitude=' + lat + '\nLongitude=' + lon + '\ndate=' + hijri + '\nCalc=' + Calcule + '\nNextSalat=' + Next + '\nbilad=' + bilad + '\nhaiaa=' + haiaa + '\nsalathadira='
         self.FAJR_1 = 'Contnt=' + Contnt + '\nContr=' + Contr + '\nfajr=' + Change_times_3(fajr[0]) + '\nsunrise=' + Change_times_3(sunrise[0]) + '\ndhuhr=' + Change_times_3(dhuhr[0]) + '\nasr=' + Change_times_3(asr[0]) + '\nmaghrib:' + Change_times_3(maghrib[0]) + '\nisha=' + Change_times_3(isha[0]) + '\nqiyam=' + Change_times_3(qiyam[0]) + '\nId=' + Id[0] + '\nLatitude=' + lat + '\nLongitude=' + lon + '\ndate=' + hijri + '\nCalc=' + Calcule + '\nNextSalat=' + Next + '\nbilad=' + bilad + '\nhaiaa=' + haiaa
         # AA = str(haiaa) + '\n' + str(Calc) + '\n' + str(Calcule) + '\n' + str(hijri) + '\n' + str(Next) + '\n' + str(Posit)
@@ -1950,6 +2003,26 @@ class Search_City(Screen):
         lon = Posit[0][1] if Posit else ''
         # self.session.open(MessageBox,Contnt+','+Contr+','+fajr[0]+','+sunrise[0]+','+dhuhr[0]+','+asr[0]+','+maghrib[0]+','+isha[0]+','+qiyam[0]+','+urlop+','+Id[0]+','+lat+','+lon+','+hijri+','+Calcule+','+Next+','+bilad+','+haiaa, MessageBox.TYPE_INFO)
         self.letter_list4.append(show_listiptv1(Contnt, Contr, fajr[0], sunrise[0], dhuhr[0], asr[0], maghrib[0], isha[0], qiyam[0], urlop, Id[0], lat, lon, hijri, Calcule, Next, bilad, haiaa))
+        if isinstance(urlop, bytes):
+            urlop = urlop.decode('utf-8')
+        if isinstance(Contnt, bytes):
+            Contnt = Contnt.decode('utf-8')
+        if isinstance(Contr, bytes):
+            Contr = Contr.decode('utf-8')
+        if isinstance(lat, bytes):
+            lat = lat.decode('utf-8')
+        if isinstance(lon, bytes):
+            lon = lon.decode('utf-8')
+        if isinstance(hijri, bytes):
+            hijri = hijri.decode('utf-8')
+        if isinstance(Calcule, bytes):
+            Calcule = Calcule.decode('utf-8')
+        if isinstance(Next, bytes):
+            Next = Next.decode('utf-8')
+        if isinstance(bilad, bytes):
+            bilad = bilad.decode('utf-8')
+        if isinstance(haiaa, bytes):
+            haiaa = haiaa.decode('utf-8')
         self.FAJR = 'Contnt=' + Contnt + '\nContr=' + Contr + '\nfajr=' + Change_times_3(fajr[0]) + '\nsunrise=' + Change_times_3(sunrise[0]) + '\ndhuhr=' + Change_times_3(dhuhr[0]) + '\nasr=' + Change_times_3(asr[0]) + '\nmaghrib:' + Change_times_3(maghrib[0]) + '\nisha=' + Change_times_3(isha[0]) + '\nqiyam=' + Change_times_3(qiyam[0]) + '\nurl=' + urlop + '\nId=' + Id[0] + '\nLatitude=' + lat + '\nLongitude=' + lon + '\ndate=' + hijri + '\nCalc=' + Calcule + '\nNextSalat=' + Next + '\nbilad=' + bilad + '\nhaiaa=' + haiaa + '\nsalathadira='
         self.FAJR_1 = 'Contnt=' + Contnt + '\nContr=' + Contr + '\nfajr=' + Change_times_3(fajr[0]) + '\nsunrise=' + Change_times_3(sunrise[0]) + '\ndhuhr=' + Change_times_3(dhuhr[0]) + '\nasr=' + Change_times_3(asr[0]) + '\nmaghrib:' + Change_times_3(maghrib[0]) + '\nisha=' + Change_times_3(isha[0]) + '\nqiyam=' + Change_times_3(qiyam[0]) + '\nId=' + Id[0] + '\nLatitude=' + lat + '\nLongitude=' + lon + '\ndate=' + hijri + '\nCalc=' + Calcule + '\nNextSalat=' + Next + '\nbilad=' + bilad + '\nhaiaa=' + haiaa
         AA = str(haiaa) + '\n' + str(Calc) + '\n' + str(Calcule) + '\n' + str(hijri) + '\n' + str(Next) + '\n' + str(Posit)
@@ -2122,6 +2195,26 @@ class PrayerTimes_Favoris(Screen):
         lon = Posit[0][1] if Posit else ''
         # self.session.open(MessageBox,Contnt+','+Contr+','+fajr[0]+','+sunrise[0]+','+dhuhr[0]+','+asr[0]+','+maghrib[0]+','+isha[0]+','+qiyam[0]+','+urlop+','+Id[0]+','+lat+','+lon+','+hijri+','+Calcule+','+Next+','+bilad+','+haiaa, MessageBox.TYPE_INFO)
         self.letter_list4.append(show_listiptv1(Contnt, Contr, fajr[0], sunrise[0], dhuhr[0], asr[0], maghrib[0], isha[0], qiyam[0], urlop, Id[0], lat, lon, hijri, Calcule, Next, bilad, haiaa))
+        if isinstance(urlop, bytes):
+            urlop = urlop.decode('utf-8')
+        if isinstance(Contnt, bytes):
+            Contnt = Contnt.decode('utf-8')
+        if isinstance(Contr, bytes):
+            Contr = Contr.decode('utf-8')
+        if isinstance(lat, bytes):
+            lat = lat.decode('utf-8')
+        if isinstance(lon, bytes):
+            lon = lon.decode('utf-8')
+        if isinstance(hijri, bytes):
+            hijri = hijri.decode('utf-8')
+        if isinstance(Calcule, bytes):
+            Calcule = Calcule.decode('utf-8')
+        if isinstance(Next, bytes):
+            Next = Next.decode('utf-8')
+        if isinstance(bilad, bytes):
+            bilad = bilad.decode('utf-8')
+        if isinstance(haiaa, bytes):
+            haiaa = haiaa.decode('utf-8')
         self.FAJR = 'Contnt=' + Contnt + '\nContr=' + Contr + '\nfajr=' + Change_times_3(fajr[0]) + '\nsunrise=' + Change_times_3(sunrise[0]) + '\ndhuhr=' + Change_times_3(dhuhr[0]) + '\nasr=' + Change_times_3(asr[0]) + '\nmaghrib:' + Change_times_3(maghrib[0]) + '\nisha=' + Change_times_3(isha[0]) + '\nqiyam=' + Change_times_3(qiyam[0]) + '\nurl=' + urlop + '\nId=' + Id[0] + '\nLatitude=' + lat + '\nLongitude=' + lon + '\ndate=' + hijri + '\nCalc=' + Calcule + '\nNextSalat=' + Next + '\nbilad=' + bilad + '\nhaiaa=' + haiaa + '\nsalathadira='
         self.FAJR_1 = 'Contnt=' + Contnt + '\nContr=' + Contr + '\nfajr=' + Change_times_3(fajr[0]) + '\nsunrise=' + Change_times_3(sunrise[0]) + '\ndhuhr=' + Change_times_3(dhuhr[0]) + '\nasr=' + Change_times_3(asr[0]) + '\nmaghrib:' + Change_times_3(maghrib[0]) + '\nisha=' + Change_times_3(isha[0]) + '\nqiyam=' + Change_times_3(qiyam[0]) + '\nId=' + Id[0] + '\nLatitude=' + lat + '\nLongitude=' + lon + '\ndate=' + hijri + '\nCalc=' + Calcule + '\nNextSalat=' + Next + '\nbilad=' + bilad + '\nhaiaa=' + haiaa
         AA = str(haiaa) + '\n' + str(Calc) + '\n' + str(Calcule) + '\n' + str(hijri) + '\n' + str(Next) + '\n' + str(Posit)
@@ -2396,6 +2489,7 @@ def comparetimes_2():
         return msgestr_2
     except:
         return msgestr_2
+       
 class DoPrayerTimesScreen(Screen):
     skin = '\n            <screen position="100,100" size="300,300" title="paryertimes" >\n            </screen>'
 
@@ -2662,6 +2756,26 @@ class athantimescreen_2(Screen):
         lat = Posit[0][0] if Posit else ''
         lon = Posit[0][1] if Posit else ''
         self.letter_list4.append(show_listiptv1(self.Contnt, self.Contr, fajr[0], sunrise[0], dhuhr[0], asr[0], maghrib[0], isha[0], qiyam[0], urlop, Id[0], lat, lon, hijri, Calcule, Next, bilad, haiaa))
+        if isinstance(urlop, bytes):
+            urlop = urlop.decode('utf-8')
+        if isinstance(self.Contnt, bytes):
+            self.Contnt = self.Contnt.decode('utf-8')
+        if isinstance(self.Contr, bytes):
+            self.Contr = self.Contr.decode('utf-8')
+        if isinstance(lat, bytes):
+            lat = lat.decode('utf-8')
+        if isinstance(lon, bytes):
+            lon = lon.decode('utf-8')
+        if isinstance(hijri, bytes):
+            hijri = hijri.decode('utf-8')
+        if isinstance(Calcule, bytes):
+            Calcule = Calcule.decode('utf-8')
+        if isinstance(Next, bytes):
+            Next = Next.decode('utf-8')
+        if isinstance(bilad, bytes):
+            bilad = bilad.decode('utf-8')
+        if isinstance(haiaa, bytes):
+            haiaa = haiaa.decode('utf-8')
         self.FAJR = 'Contnt=' + self.Contnt + '\nContr=' + self.Contr + '\nfajr=' + Change_times_3(fajr[0]) + '\nsunrise=' + Change_times_3(sunrise[0]) + '\ndhuhr=' + Change_times_3(dhuhr[0]) + '\nasr=' + Change_times_3(asr[0]) + '\nmaghrib:' + Change_times_3(maghrib[0]) + '\nisha=' + Change_times_3(isha[0]) + '\nqiyam=' + Change_times_3(qiyam[0]) + '\nurl=' + urlop + '\nId=' + Id[0] + '\nLatitude=' + lat + '\nLongitude=' + lon + '\ndate=' + hijri + '\nCalc=' + Calcule + '\nNextSalat=' + Next + '\nbilad=' + bilad + '\nhaiaa=' + haiaa + '\nsalathadira='
         self.FAJR_1 = 'Contnt=' + self.Contnt + '\nContr=' + self.Contr + '\nfajr=' + Change_times_3(fajr[0]) + '\nsunrise=' + Change_times_3(sunrise[0]) + '\ndhuhr=' + Change_times_3(dhuhr[0]) + '\nasr=' + Change_times_3(asr[0]) + '\nmaghrib:' + Change_times_3(maghrib[0]) + '\nisha=' + Change_times_3(isha[0]) + '\nqiyam=' + Change_times_3(qiyam[0]) + '\nId=' + Id[0] + '\nLatitude=' + lat + '\nLongitude=' + lon + '\ndate=' + hijri + '\nCalc=' + Calcule + '\nNextSalat=' + Next + '\nbilad=' + bilad + '\nhaiaa=' + haiaa
         AA = str(haiaa) + '\n' + str(Calc) + '\n' + str(Calcule) + '\n' + str(hijri) + '\n' + str(Next) + '\n' + str(Posit)
@@ -2677,9 +2791,17 @@ class athantimescreen_2(Screen):
             outfile.write(self.FAJR)
             outfile.close()
             XML_Choice(self.letter_list4)
+
+        print("[DEBUG athantimescreen_2] UPDATE SUCCESS")
+        print("[DEBUG athantimescreen_2] messageupdat:", repr(self.messageupdat))
+        print("[DEBUG athantimescreen_2] Calling Notification_Msg")
+
+        self.Notification_Msg('ok')
+
+        print("[DEBUG athantimescreen_2] Notification_Msg DONE")
+
         self.session.open(MessageBox, '\tData\n\t====\n\tالبيانات\n\t=====\n' + self.FAJR_1, MessageBox.TYPE_INFO, timeout=20)
         SearchAthanWeather(bilad, self.Contr).SearchWeather()
-        self.Notification_Msg('ok')
 
     def Notification_Msg(self, cond):
         self.Path_4 = '/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes/PrayerTimes/messageupdat.txt'
@@ -2687,17 +2809,37 @@ class athantimescreen_2(Screen):
         self.Jour = maintenant.day
         self.mois = maintenant.month
         self.Annee = maintenant.year
-        if cond == 'ok':
-            if fileExists(self.Path_4):
-                os.remove(self.Path_4)
-                outfile = open(self.Path_4, 'a')
-                outfile.write(self.messageupdat + '\n' + str(self.Jour) + '\n' + str(self.mois) + '\n' + str(self.Annee))
-                outfile.close()
-        elif fileExists(self.Path_4):
-            os.remove(self.Path_4)
-            outfile = open(self.Path_4, 'a')
-            outfile.write('Unfortunately the times have not been updated_للأسف لم يتم تحديث الاوقات' + '\n' + str(self.Jour) + '\n' + str(self.mois) + '\n' + str(self.Annee))
+
+        print("[DEBUG Notification_Msg] START")
+        print("[DEBUG Notification_Msg] cond:", repr(cond))
+        print("[DEBUG Notification_Msg] Path:", self.Path_4)
+        print("[DEBUG Notification_Msg] Date:", self.Jour, self.mois, self.Annee)
+        print("[DEBUG Notification_Msg] messageupdat:", repr(self.messageupdat))
+
+        try:
+            if cond == 'ok':
+                content = self.messageupdat + '\n' + str(self.Jour) + '\n' + str(self.mois) + '\n' + str(self.Annee)
+            else:
+                content = 'Unfortunately the times have not been updated_للأسف لم يتم تحديث الاوقات' + '\n' + str(self.Jour) + '\n' + str(self.mois) + '\n' + str(self.Annee)
+
+            print("[DEBUG Notification_Msg] Content:", repr(content))
+
+            outfile = open(self.Path_4, 'w')
+            outfile.write(content)
             outfile.close()
+
+            print("[DEBUG Notification_Msg] WRITE SUCCESS")
+
+            checkfile = open(self.Path_4, 'r')
+            checkdata = checkfile.read()
+            checkfile.close()
+
+            print("[DEBUG Notification_Msg] FILE AFTER WRITE:", repr(checkdata))
+
+        except Exception as e:
+            print("[DEBUG Notification_Msg] ERROR:", repr(e))
+
+        print("[DEBUG Notification_Msg] END")
 
 class PrayerTimesBackgroundWorkerScreen(Screen):
     skin = '\n            <screen position="100,100" size="300,300" title="Mountie Plugin Menu" >\n            </screen>'
