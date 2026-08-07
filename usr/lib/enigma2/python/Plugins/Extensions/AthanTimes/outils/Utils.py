@@ -944,8 +944,17 @@ def ImportDataInfos(data):
 
     data = data.replace('&nbsp;', ' ')
 
-    bilad = re.findall(r"/world/.+?/.+?/(.+?)-prayer-times/\?language=ar", data)
-    bilad = bilad[0].replace('-', ' ') if bilad else ''
+    bilad = ''
+    m = re.search(r'"canonical"\s*:\s*"([^"]+)"', data)
+    if m:
+        url = m.group(1)
+    else:
+        m = re.search(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)["\']', data, re.I)
+        url = m.group(1) if m else ''
+    if url:
+        m = re.search(r'/(\d+)/([^/?]+)-prayer-times/?(?:\?|$)', url)
+        if m:
+            bilad = m.group(2).replace('-', ' ').strip()
 
     fajr = re.findall(r'"fajr"\s*:\s*"([^"]+)"', data, re.I)
     if not fajr:
