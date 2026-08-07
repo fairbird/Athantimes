@@ -4,6 +4,16 @@
 version=3.8
 echo ""
 #########################
+PLUGIN_PATH="/usr/lib/enigma2/python/Plugins/Extensions/AthanTimes"
+PrayerTimes="$PLUGIN_PATH/PrayerTimes.xml"
+Prayer="$PLUGIN_PATH/Prayer.txt"
+city="$PLUGIN_PATH/city.txt"
+ChoiceTime="$PLUGIN_PATH/PrayerTimes/ChoiceTime.txt"
+### Tmp
+TMP_PrayerTimes="/tmp/PrayerTimes.xml"
+TMP_Prayer="/tmp/Prayer.txt"
+TMP_city="/tmp/city.txt"
+TMP_ChoiceTime="/tmp/ChoiceTime.txt"
 
 # check depends packges
 if [ -f /var/lib/dpkg/status ]; then
@@ -47,13 +57,25 @@ else
 	fi
 fi
 # Download and install plugin
-cd /tmp 
+cd /tmp
+echo "BackUp saved files"
+cp -f $PrayerTimes $TMP_PrayerTimes
+cp -f $Prayer $TMP_Prayer
+cp -f $city $TMP_city
+cp -f $ChoiceTime $TMP_ChoiceTime
+echo ""
 set -e
 rm -rf *Athantimes* > /dev/null 2>&1
 rm -rf *main* > /dev/null 2>&1
 wget https://github.com/fairbird/Athantimes/archive/refs/heads/main.tar.gz
 tar -xzf main.tar.gz
 cp -r Athantimes-main/usr /
+echo "Restore backup files"
+cp -f  $TMP_PrayerTimes $PrayerTimes
+cp -f  $TMP_Prayer $Prayer
+cp -f  $TMP_city $city
+cp -f  $TMP_ChoiceTime $ChoiceTime
+echo ""
 rm -rf *Athantimes* > /dev/null 2>&1
 rm -rf *main* > /dev/null 2>&1
 #
